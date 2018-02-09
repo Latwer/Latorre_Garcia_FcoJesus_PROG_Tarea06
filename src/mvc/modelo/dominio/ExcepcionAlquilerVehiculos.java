@@ -1,4 +1,4 @@
-package tarea06.modelo;
+package mvc.modelo.dominio;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>

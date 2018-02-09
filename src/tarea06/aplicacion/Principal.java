@@ -1,10 +1,10 @@
 package tarea06.aplicacion;
 
-import tarea06.modelo.Cliente;
-import tarea06.modelo.ExcepcionAlquilerVehiculos;
-import tarea06.modelo.AlquilerVehiculos;
-import tarea06.modelo.Alquiler;
-import tarea06.modelo.Turismo;
+import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.AlquilerVehiculos;
+import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.Turismo;
 import utilidades.Entrada;
 
 /**

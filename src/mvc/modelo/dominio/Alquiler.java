@@ -1,4 +1,4 @@
-package tarea06.modelo;
+package mvc.modelo.dominio;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;

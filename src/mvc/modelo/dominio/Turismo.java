@@ -1,5 +1,6 @@
-package tarea06.modelo;
+package mvc.modelo.dominio;
 
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import java.util.regex.*;
 
 /**

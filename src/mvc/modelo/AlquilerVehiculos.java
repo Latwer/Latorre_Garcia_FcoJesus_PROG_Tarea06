@@ -1,4 +1,9 @@
-package tarea06.modelo;
+package mvc.modelo;
+
+import mvc.modelo.dominio.Turismo;
+import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
