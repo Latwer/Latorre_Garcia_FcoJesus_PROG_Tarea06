@@ -1,6 +1,5 @@
 package mvc.modelo.dominio;
 
-import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import java.util.regex.*;
 
 /**
@@ -17,33 +16,52 @@ public class Turismo {
         marca = turismo.getMarca();
         modelo = turismo.getModelo();
         cilindrada = turismo.getCilindrada();
-        disponible=turismo.getDisponible();
+        disponible = turismo.getDisponible();
     }
 
     public Turismo(String matricula, String marca, String modelo, int cilindrada) {
-        //Matricula
+        setMatricula(matricula);
+        setMarca(marca);
+        setModelo(modelo);
+        setCilindrada(cilindrada);
+    }
+
+    private void setMatricula(String matricula) {
         if (compruebaMatricula(matricula)) {
             this.matricula = matricula;
         } else {
-            throw new ExcepcionAlquilerVehiculos("Matrícula incorrecta.");
+            throw new ExcepcionAlquilerVehiculos("Matrícula no válida");
         }
-        //Marca
-        this.marca = marca;
-        //Modelo
-        this.modelo = modelo;
-        //Cilindrada
-        if (cilindrada > 0) {
-            this.cilindrada = cilindrada;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("Cilindrada no válida");
-        }
-        
     }
 
     private boolean compruebaMatricula(String matricula) {
         Pattern patron = Pattern.compile("\\d{4}[B-DF-HJ-ÑP-TV-Z]{3}");
         Matcher emparejador = patron.matcher(matricula);
         return emparejador.matches();
+    }
+
+    private void setMarca(String marca) {
+        if (marca != null && !marca.equals("")) {
+            this.marca = marca;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Marca no válida");
+        }
+    }
+
+    private void setModelo(String modelo) {
+        if (modelo != null && !modelo.equals("")) {
+            this.modelo = modelo;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Modelo no válido");
+        }
+    }
+
+    private void setCilindrada(int cilindrada) {
+        if (cilindrada > 0) {
+            this.cilindrada = cilindrada;
+        } else {
+            throw new ExcepcionAlquilerVehiculos("Cilindrada no válida");
+        }
     }
 
     public String getMatricula() {
