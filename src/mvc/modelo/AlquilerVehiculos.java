@@ -1,190 +1,93 @@
 package mvc.modelo;
 
-import mvc.modelo.dominio.Turismo;
-import mvc.modelo.dominio.Alquiler;
-import mvc.modelo.dominio.Cliente;
-import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.*;
+import mvc.modelo.dao.*;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
 public class AlquilerVehiculos {
 
-    private Cliente[] clientes;
-    private Turismo[] turismos;
-    private Alquiler[] alquileres;
-
-    private final int MAX_CLIENTES = 25;
-    private final int MAX_TURISMOS = 25;
-    private final int MAX_ALQUILERES = 25;
+    private Clientes clientes;
+    private Turismos turismos;
+    private Alquileres alquileres;
 
     public AlquilerVehiculos() {
-        clientes = new Cliente[MAX_CLIENTES];
-        turismos = new Turismo[MAX_TURISMOS];
-        alquileres = new Alquiler[MAX_ALQUILERES];
-    }
-
-    public Cliente[] getClientes() {
-        return clientes;
+        clientes = new Clientes();
+        turismos = new Turismos();
+        alquileres = new Alquileres();
     }
 
     public Turismo[] getTurismos() {
-        return turismos;
+        return turismos.getTurismos();
+    }
+
+    public Cliente[] getClientes() {
+        return clientes.getClientes();
     }
 
     public Alquiler[] getAlquileres() {
-        return alquileres;
-    }
-
-    public Cliente getCliente(String dni) {
-        int posicion = 0;
-        boolean encontrado = false;
-        while (posicion < clientes.length && !encontrado) {
-            if (clientes[posicion] != null && clientes[posicion].getDni().equals(dni)) {
-                encontrado = true;
-            } else {
-                posicion++;
-            }
-        }
-        if (encontrado) {
-            return clientes[posicion];
-        } else {
-            return null;
-        }
-    }
-
-    public void addCliente(Cliente cliente) {
-        int posicion = 0;
-        boolean posicionEncontrada = false;
-        while (posicion < clientes.length && !posicionEncontrada) {
-            if (clientes[posicion] == null) {
-                posicionEncontrada = true;
-            } else if (clientes[posicion].getDni().equals(cliente.getDni())) {
-                throw new ExcepcionAlquilerVehiculos("Ya existe un cliente con ese DNI");
-            } else {
-                posicion++;
-            }
-        }
-        if (posicionEncontrada) {
-            clientes[posicion] = cliente;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El array de clientes está lleno.");
-        }
-    }
-
-    public void delCliente(String dni) {
-        int posicion = 0;
-        boolean encontrado = false;
-        while (posicion < clientes.length && !encontrado) {
-            if (clientes[posicion] != null && clientes[posicion].getDni().equals(dni)) {
-                encontrado = true;
-            } else {
-                posicion++;
-            }
-        }
-        if (encontrado) {
-            for (int i = posicion; i < clientes.length - 1; i++) {
-                clientes[i] = clientes[i + 1];
-            }
-            clientes[clientes.length - 1] = null;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El cliente a borrar no existe");
-        }
-    }
-
-    public Turismo getTurismo(String matricula) {
-        int posicion = 0;
-        boolean encontrado = false;
-        while (posicion < turismos.length && !encontrado) {
-            if (turismos[posicion] != null && turismos[posicion].getMatricula().equals(matricula)) {
-                encontrado = true;
-            } else {
-                posicion++;
-            }
-        }
-        if (encontrado) {
-            return turismos[posicion];
-        } else {
-            return null;
-        }
+        return alquileres.getAlquileres();
     }
 
     public void addTurismo(Turismo turismo) {
-        int posicion = 0;
-        boolean posicionEncontrada = false;
-        while (posicion < turismos.length && !posicionEncontrada) {
-            if (turismos[posicion] == null) {
-                posicionEncontrada = true;
-            } else if (turismos[posicion].getMatricula().equals(turismo.getMatricula())) {
-                throw new ExcepcionAlquilerVehiculos("Ya existe un turismo con esa matrícula");
-            } else {
-                posicion++;
-            }
-        }
-        if (posicionEncontrada) {
-            turismos[posicion] = turismo;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El array de turismos está lleno.");
-        }
+        //comprobarDisponibilidadTurismo(turismo);
+        turismos.addTurismo(turismo);
     }
 
     public void delTurismo(String matricula) {
-        int posicion = 0;
-        boolean encontrado = false;
-        while (posicion < turismos.length && !encontrado) {
-            if (turismos[posicion] != null && turismos[posicion].getMatricula().equals(matricula)) {
-                encontrado = true;
-            } else {
-                posicion++;
-            }
-        }
-        if (encontrado) {
-            for (int i = posicion; i < turismos.length - 1; i++) {
-                turismos[i] = turismos[i + 1];
-            }
-            turismos[turismos.length - 1] = null;
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El turismo a borrar no existe");
-        }
+        turismos.delTurismo(matricula);
+    }
+
+    public Turismo getTurismo(String matricula) {
+        return turismos.getTurismo(matricula);
+    }
+
+    public void addCliente(Cliente cliente) {
+        clientes.addCliente(cliente);
+    }
+
+    public void delCliente(String dni) {
+        clientes.delCliente(dni);
+    }
+
+    public Cliente getCliente(String dni) {
+        return clientes.getCliente(dni);
     }
 
     public void openAlquiler(Cliente cliente, Turismo turismo) {
-        int posicion = 0;
-        boolean posicionEncontrada = false;
-        while (posicion < alquileres.length && !posicionEncontrada) {
-            if (alquileres[posicion] == null) {
-                posicionEncontrada = true;
-            } else if (alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula())
-                    && !alquileres[posicion].getTurismo().getDisponible()) {
-                throw new ExcepcionAlquilerVehiculos("Ya existe un Alquiler abierto para este turismo");
-            } else {
-                posicion++;
-            }
-        }
-        if (posicionEncontrada) {
-            alquileres[posicion] = new Alquiler(cliente, turismo);
-        } else {
-            throw new ExcepcionAlquilerVehiculos("El array de Alquileres está lleno.");
-        }
+        //comprobarDisponibilidadTurismo(cliente, turismo);
+        alquileres.openAlquiler(cliente, turismo);
     }
 
     public void closeAlquiler(Cliente cliente, Turismo turismo) {
-        int posicion = 0;
-        boolean encontrado = false;
-        while (posicion < alquileres.length && !encontrado) {
-            if (alquileres[posicion] != null
-                    && alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula())
-                    && alquileres[posicion].getCliente().getDni().equals(cliente.getDni())
-                    && !alquileres[posicion].getTurismo().getDisponible()) {
-                encontrado = true;
-            } else {
-                posicion++;
-            }
+        comprobarExistenciaClienteTurismo(cliente, turismo);
+        alquileres.closeAlquiler(cliente, turismo);
+    }
+
+    /*private void comprobarDisponibilidadTurismo(Cliente cliente, Turismo turismo) {
+        if (clientes.buscarCliente(turismo.getPropietario().getDni()) == null) {
+            throw new ExcepcionAlquilerVehiculos("El propietario del vehículo no existe");
         }
-        if (encontrado) {
-            alquileres[posicion].close();
-        } else {
-            throw new ExcepcionAlquilerVehiculos("No hay ningún alquiler abierto para ese turismo");
+    }*/
+    private void comprobarExistenciaClienteTurismo(Cliente cliente, Turismo turismo) {
+        if (turismos.getTurismo(turismo.getMatricula()) == null && clientes.getCliente(cliente.getDni()) == null) {
+            throw new ExcepcionAlquilerVehiculos("El cliente o turismo no existe");
         }
+    }
+
+    public void anadirDatosPrueba() {
+        Cliente cliente1 = new Cliente("Juanma", "11111111A", new DireccionPostal("calle esmeralda", "Almería", "04001"));
+        Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
+        addCliente(cliente1);
+        addCliente(cliente2);
+        Turismo turismo1 = new Turismo("1111BBB", "Nissan", "Skyline", 1900);
+        Turismo turismo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
+        addTurismo(turismo1);
+        addTurismo(turismo2);
+        openAlquiler(cliente1, turismo1);
+        openAlquiler(cliente2, turismo2);
+        closeAlquiler(cliente1, turismo1);
+        closeAlquiler(cliente2, turismo2);
     }
 }
