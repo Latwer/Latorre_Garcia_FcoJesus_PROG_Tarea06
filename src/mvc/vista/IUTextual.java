@@ -1,31 +1,25 @@
-package tarea06.aplicacion;
+package mvc.vista;
 
-import mvc.modelo.dominio.Cliente;
-import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.AlquilerVehiculos;
 import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.Cliente;
+import mvc.modelo.dominio.DireccionPostal;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Turismo;
 import utilidades.Entrada;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
- * Crea una clase llamada Principal que incluya un método main. El método main
- * deberá mostrarnos un menú con las diferentes opciones (añadir cliente, borrar
- * cliente, listar clientes, añadir turismo, borrar turismo, listar turismos,
- * abrir un alquiler, cerrar un alquiler, listar alquileres y salir) y actuar en
- * consecuencia. El menú se repetirá mientras no elijamos la opción salir. En
- * todo caso se debe validar que todas las entradas al programa son correctas.
- * Haz un commit.
  */
-public class Principal {
+public class IUTextual {
 
     public static void main(String[] args) {
         AlquilerVehiculos miAlquiler = new AlquilerVehiculos();
-        Cliente cliente1 = new Cliente("Antonio", "11111111A", "Calle bistec", "Almería", "04001");
-        Cliente cliente2 = new Cliente("Juanma", "22222222B", "C/Leopardo", "Almería", "04002");
+        Cliente cliente1 = new Cliente("Juanma", "11111111A", new DireccionPostal("calle esmeralda", "Almería", "04001"));
+        Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
         miAlquiler.addCliente(cliente1);
         miAlquiler.addCliente(cliente2);
-        Turismo turismo1 = new Turismo("1111BBB", "Seat", "Ibiza", 1900);
+        Turismo turismo1 = new Turismo("1111BBB", "Nissan", "Skyline", 1900);
         Turismo turismo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
         miAlquiler.addTurismo(turismo1);
         miAlquiler.addTurismo(turismo2);
@@ -81,13 +75,13 @@ public class Principal {
                         System.out.print("DNI: ");
                         String dni = Entrada.cadena();
                         System.out.print("Dirección: ");
-                        String direccion = Entrada.cadena();
+                        String calle = Entrada.cadena();
                         System.out.print("Localidad: ");
                         String localidad = Entrada.cadena();
                         System.out.print("Código postal: ");
                         String codigoPostal = Entrada.cadena();
                         try {
-                            addCliente = new Cliente(nombre, dni, direccion, localidad, codigoPostal);
+                            addCliente = new Cliente(nombre, dni, new DireccionPostal(calle, localidad, codigoPostal));
                         } catch (ExcepcionAlquilerVehiculos e) {
                             System.out.printf("ERROR: %s%n%n", e.getMessage());
                             System.out.println("Vuelve a introducir los datos de forma correcta");
