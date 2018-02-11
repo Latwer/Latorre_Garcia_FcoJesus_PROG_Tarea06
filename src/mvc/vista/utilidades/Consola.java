@@ -4,33 +4,34 @@ import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Turismo;
-//import mvc.vista.Opcion;
+import mvc.vista.Opcion;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
 public class Consola {
 
-    /*public static void mostrarMenu() {
-		mostrarCabecera("Taller mecánico");
-		for (Opcion opcion: Opcion.values()) {
-			System.out.println(opcion);
-		}
-	}*/
+    public static void mostrarMenu() {
+        mostrarCabecera("Taller mecánico");
+        for (Opcion opcion : Opcion.values()) {
+            System.out.println(opcion);
+        }
+    }
 
     public static void mostrarCabecera(String mensaje) {
         System.out.printf("%n%s%n", mensaje);
         System.out.println(String.format("%0" + mensaje.length() + "d%n", 0).replace("0", "-"));
     }
 
-    /*public static int elegirOpcion() {
-		int ordinalOpcion;
-		do {
-			System.out.print("\nElige una opción: ");
-			ordinalOpcion = Entrada.entero();
-		} while (!Opcion.esOrdinalValido(ordinalOpcion));
-		return ordinalOpcion;
-	}*/
+    public static int elegirOpcion() {
+        int ordinalOpcion;
+        do {
+            System.out.print("\nElige una opción: ");
+            ordinalOpcion = Entrada.entero();
+        } while (!Opcion.esOrdinalValido(ordinalOpcion));
+        return ordinalOpcion;
+    }
+
     public static Cliente leerCliente() {
         Cliente cliente = null;
         System.out.print("Nombre: ");
@@ -57,8 +58,8 @@ public class Consola {
         return dniBorrar;
     }
 
-    public static Turismo leerTurismo(Cliente propietario) {
-        Turismo nuevoVehiculo = null;
+    public static Turismo leerTurismo() {
+        Turismo nuevoTurismo = null;
         System.out.print("Matrícula: ");
         String matricula = Entrada.cadena();
         System.out.print("Marca: ");
@@ -68,11 +69,11 @@ public class Consola {
         System.out.print("Cilindrada: ");
         int cilindrada = Entrada.entero();
         try {
-            nuevoVehiculo = new Turismo(matricula, marca, modelo, cilindrada);
+            nuevoTurismo = new Turismo(matricula, marca, modelo, cilindrada);
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());
         }
-        return nuevoVehiculo;
+        return nuevoTurismo;
     }
 
     public static String leerMatricula() {

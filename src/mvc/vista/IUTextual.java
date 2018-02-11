@@ -7,13 +7,164 @@ import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.Turismo;
 import utilidades.Entrada;
+import mvc.vista.utilidades.Consola;
+import mvc.controlador.ControladorAlquilerVehiculos;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
 public class IUTextual {
 
-    public static void main(String[] args) {
+    ControladorAlquilerVehiculos controlador;
+
+    public IUTextual() {
+        Opcion.setVista(this);
+    }
+
+    public void setControlador(ControladorAlquilerVehiculos controlador) {
+        this.controlador = controlador;
+    }
+
+    public void comenzar() {
+        int ordinalOpcion;
+        do {
+            Consola.mostrarMenu();
+            ordinalOpcion = Consola.elegirOpcion();
+            Opcion opcion = Opcion.getOpcionSegunOridnal(ordinalOpcion);
+            opcion.ejecutar();
+        } while (ordinalOpcion != Opcion.SALIR.ordinal());
+    }
+
+    public void salir() {
+        System.out.println("Hasta la proxima!");
+    }
+
+    public void anadirCliente() {
+        Consola.mostrarCabecera("Añadir cliente");
+        Cliente cliente = Consola.leerCliente();
+        try {
+            controlador.addCliente(cliente);
+            System.out.println("Cliente añadido satisfactoriamente\n");
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("ERROR: %s%n%n", e.getMessage());
+        }
+    }
+
+    public void borrarCliente() {
+        Consola.mostrarCabecera("Borrar cliente");
+        String dni = Consola.leerDni();
+        try {
+            controlador.delCliente(dni);
+            System.out.println("Cliente borrado satisfactoriamente\n");
+        } catch (Exception e) {
+            System.out.printf("ERROR: %s%n%n", e.getMessage());
+        }
+    }
+
+    public void buscarCliente() {
+        Consola.mostrarCabecera("Buscar cliente");
+        String dni = Consola.leerDni();
+        Cliente cliente = controlador.getCliente(dni);
+        String mensaje = (cliente != null) ? cliente.toString() : "El cliente no existe";
+        System.out.printf("%s%n%n", mensaje);
+    }
+
+    public void listarClientes() {
+        Consola.mostrarCabecera("Listar clientes");
+        for (Cliente cliente : controlador.getClientes()) {
+            if (cliente != null) {
+                System.out.println(cliente);
+            }
+        }
+        System.out.println("");
+    }
+
+    public void anadirTurismo() {
+        Consola.mostrarCabecera("Añadir turismo");
+        Turismo turismo = Consola.leerTurismo();
+        try {
+            controlador.addTurismo(turismo);
+            System.out.println("Turismo añadido satisfactoriamente\n");
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("ERROR: %s%n%n", e.getMessage());
+        }
+    }
+
+    public void borrarTurismo() {
+        Consola.mostrarCabecera("Borrar turismo");
+        String matricula = Consola.leerMatricula();
+        try {
+            controlador.delTurismo(matricula);
+            System.out.println("Turismo borrado satisfactoriamente\n");
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("ERROR: %s%n%n", e.getMessage());
+        }
+    }
+
+    public void buscarTurismo() {
+        Consola.mostrarCabecera("Buscar turismo");
+        String matricula = Consola.leerMatricula();
+        Turismo turismoBuscado = controlador.getTurismo(matricula);
+        String mensaje = (turismoBuscado != null) ? turismoBuscado.toString() : "El turismo no existe";
+        System.out.printf("%s%n%n", mensaje);
+    }
+
+    public void listarTurismos() {
+        Consola.mostrarCabecera("Listar turismos");
+        for (Turismo turismo : controlador.getTurismos()) {
+            if (turismo != null) {
+                System.out.println(turismo);
+            }
+        }
+        System.out.println("");
+    }
+
+    public void abrirAlquiler() {
+        Consola.mostrarCabecera("Abrir alquiler");
+        String dni = Consola.leerDni();
+        Cliente cliente = controlador.getCliente(dni);
+        String matricula = Consola.leerMatricula();
+        Turismo turismo = controlador.getTurismo(matricula);
+        if (cliente == null && turismo == null) {
+            System.out.println("ERROR: No existe un cliente con dicho dni o un vehículo con dicha matrícula\n");
+        } else {
+            try {
+                controlador.openAlquiler(cliente, turismo);
+                System.out.println("Alquiler abierto satisfactoriamente\n");
+            } catch (ExcepcionAlquilerVehiculos e) {
+                System.out.printf("ERROR: %s%n%n", e.getMessage());
+            }
+        }
+    }
+
+    public void cerrarAlquiler() {
+        Consola.mostrarCabecera("Cerrar alquiler");
+        String dni = Consola.leerDni();
+        Cliente cliente = controlador.getCliente(dni);
+        String matricula = Consola.leerMatricula();
+        Turismo turismo = controlador.getTurismo(matricula);
+        if (cliente == null && turismo == null) {
+            System.out.println("ERROR: No existe un cliente con dicho dni o un vehículo con dicha matrícula\n");
+        } else {
+            try {
+                controlador.cerrarTrabajo(cliente, turismo);
+                System.out.println("Alquiler cerrado satisfactoriamente\n");
+            } catch (ExcepcionAlquilerVehiculos e) {
+                System.out.printf("ERROR: %s%n%n", e.getMessage());
+            }
+        }
+    }
+
+    public void listarAlquileres() {
+        Consola.mostrarCabecera("Listar alquileres");
+        for (Alquiler alquiler : controlador.getAlquileres()) {
+            if (alquiler != null) {
+                System.out.println(alquiler);
+            }
+        }
+        System.out.println("");
+    }
+    /*public static void main(String[] args) {
         AlquilerVehiculos miAlquiler = new AlquilerVehiculos();
         Cliente cliente1 = new Cliente("Juanma", "11111111A", new DireccionPostal("calle esmeralda", "Almería", "04001"));
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
@@ -66,32 +217,7 @@ public class IUTextual {
             } while (opcion < 0 || opcion > 9);
             switch (opcion) {
                 case 1:
-                    Cliente addCliente = null;
-                    do {
-                        System.out.println("\nAñadir cliente");
-                        System.out.println("--------------");
-                        System.out.print("Nombre: ");
-                        String nombre = Entrada.cadena();
-                        System.out.print("DNI: ");
-                        String dni = Entrada.cadena();
-                        System.out.print("Dirección: ");
-                        String calle = Entrada.cadena();
-                        System.out.print("Localidad: ");
-                        String localidad = Entrada.cadena();
-                        System.out.print("Código postal: ");
-                        String codigoPostal = Entrada.cadena();
-                        try {
-                            addCliente = new Cliente(nombre, dni, new DireccionPostal(calle, localidad, codigoPostal));
-                        } catch (ExcepcionAlquilerVehiculos e) {
-                            System.out.printf("ERROR: %s%n%n", e.getMessage());
-                            System.out.println("Vuelve a introducir los datos de forma correcta");
-                        }
-                    } while (addCliente == null);
-                    try {
-                        miAlquiler.addCliente(addCliente);
-                    } catch (ExcepcionAlquilerVehiculos e) {
-                        System.out.printf("ERROR: %s%n%n", e.getMessage());
-                    }
+            anadirCliente(miAlquiler);
                     break;
                 case 2:
                     System.out.println("\nBorrar cliente");
@@ -149,9 +275,9 @@ public class IUTextual {
                 case 6:
                     System.out.println("\nListado de turismos");
                     System.out.println("--------------------");
-                    for (Turismo vehiculo : miAlquiler.getTurismos()) {
-                        if (vehiculo != null) {
-                            System.out.println(vehiculo);
+                    for (Turismo turismo : miAlquiler.getTurismos()) {
+                        if (turismo != null) {
+                            System.out.println(turismo);
                         }
                     }
                     System.out.println("");
@@ -212,4 +338,32 @@ public class IUTextual {
         } while (opcion != 0);
     }
 
+    private static void anadirCliente(AlquilerVehiculos miAlquiler) {
+        Cliente addCliente = null;
+        do {
+            System.out.println("\nAñadir cliente");
+            System.out.println("--------------");
+            System.out.print("Nombre: ");
+            String nombre = Entrada.cadena();
+            System.out.print("DNI: ");
+            String dni = Entrada.cadena();
+            System.out.print("Dirección: ");
+            String calle = Entrada.cadena();
+            System.out.print("Localidad: ");
+            String localidad = Entrada.cadena();
+            System.out.print("Código postal: ");
+            String codigoPostal = Entrada.cadena();
+            try {
+                addCliente = new Cliente(nombre, dni, new DireccionPostal(calle, localidad, codigoPostal));
+            } catch (ExcepcionAlquilerVehiculos e) {
+                System.out.printf("ERROR: %s%n%n", e.getMessage());
+                System.out.println("Vuelve a introducir los datos de forma correcta");
+            }
+        } while (addCliente == null);
+        try {
+            miAlquiler.addCliente(addCliente);
+        } catch (ExcepcionAlquilerVehiculos e) {
+            System.out.printf("ERROR: %s%n%n", e.getMessage());
+        }
+    }*/
 }
