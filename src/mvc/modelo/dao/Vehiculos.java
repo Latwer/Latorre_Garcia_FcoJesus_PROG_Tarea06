@@ -21,7 +21,7 @@ public class Vehiculos {
         return Vehiculos.clone();
     }
 
-    public void addVehiculo(Vehiculo vehiculo) {
+    public void addVehiculo(TipoVehiculo tipoVehiculo) {
         int indice = buscarPrimerIndiceLibreComprobandoExistencia(vehiculo);
         if (indiceNoSuperaTamano(indice)) {
             Vehiculos[indice] = new Vehiculo(vehiculo);

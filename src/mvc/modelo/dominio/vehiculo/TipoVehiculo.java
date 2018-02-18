@@ -7,18 +7,18 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
  */
 public enum TipoVehiculo {
     TURISMO("Vehiculo de tipo turismo") {
-        public Vehiculo getInstancia(Vehiculo vehiculo) {
-            return new Vehiculo(vehiculo);
+        public Turismo getInstancia(Vehiculo vehiculo) {
+            return new Turismo(vehiculo);
         }
     },
     DE_CARGA("Vehiculo de carga") {
-        public Vehiculo getInstancia(Vehiculo vehiculo) {
-            return new Vehiculo(vehiculo);
+        public DeCarga getInstancia(Vehiculo vehiculo) {
+            return new DeCarga(vehiculo);
         }
     },
     AUTOBUS("Vehiculo de tipo autobus") {
-        public Vehiculo getInstancia(Vehiculo vehiculo) {
-            return new Vehiculo(vehiculo);
+        public Autobus getInstancia(Vehiculo vehiculo) {
+            return new Autobus(vehiculo);
         }
     };
     private String tipo;
