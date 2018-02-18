@@ -1,5 +1,6 @@
 package mvc.modelo.dominio;
 
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -8,7 +9,7 @@ import java.text.SimpleDateFormat;
  */
 public class Alquiler {
 
-    private Turismo turismo;
+    private Vehiculo vehiculo;
     private Cliente cliente;
     private Date fecha;
     private int dias;
@@ -16,12 +17,12 @@ public class Alquiler {
     private final int MS_DIA = 1000 * 60 * 60 * 24;
     private final double PRECIO_DIA = 30.0;
 
-    public Alquiler(Cliente cliente, Turismo turismo) {
+    public Alquiler(Cliente cliente, Vehiculo vehiculo) {
         setCliente(cliente);
-        setTurismo(turismo);
+        setVehiculo(vehiculo);
         fecha = new Date();
         dias = 0;
-        turismo.setDisponible(false);
+        vehiculo.setDisponible(false);
     }
 
     private void setCliente(Cliente cliente) {
@@ -36,16 +37,16 @@ public class Alquiler {
         return cliente;
     }
 
-    private void setTurismo(Turismo turismo) {
-        if (turismo != null) {
-            this.turismo = new Turismo(turismo);
+    private void setVehiculo(Vehiculo vehiculo) {
+        if (vehiculo != null) {
+            this.vehiculo = new Vehiculo(vehiculo);
         } else {
-            throw new ExcepcionAlquilerVehiculos("El alquiler debe tener un turismo identificado");
+            throw new ExcepcionAlquilerVehiculos("El alquiler debe tener un vehiculo identificado");
         }
     }
 
-    public Turismo getTurismo() {
-        return turismo;
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
 
     public Date getFecha() {
@@ -59,7 +60,7 @@ public class Alquiler {
     public void close() {
         Date ahora = new Date();
         dias = difDias(ahora, fecha);
-        turismo.setDisponible(true);
+        vehiculo.setDisponible(true);
     }
 
     private int difDias(Date fechaFin, Date fechaInicio) {
@@ -69,12 +70,12 @@ public class Alquiler {
     }
 
     public double getPrecio() {
-        return PRECIO_DIA * dias + turismo.getCilindrada() / 100;
+        return PRECIO_DIA * dias + vehiculo.getCilindrada() / 100;
     }
 
     @Override
     public String toString() {
-        return String.format("Fecha entrada: %s, Días: %d  Precio: %.2f%n\tCliente: %s%n\tTurismo: %s",
-                FORMATO_FECHA.format(fecha), dias, getPrecio(), cliente, turismo);
+        return String.format("Fecha entrada: %s, Días: %d  Precio: %.2f%n\tCliente: %s%n\tVehiculo: %s",
+                FORMATO_FECHA.format(fecha), dias, getPrecio(), cliente, vehiculo);
     }
 }

@@ -1,25 +1,26 @@
-package mvc.modelo.dominio;
+package mvc.modelo.dominio.vehiculo;
 
 import java.util.regex.*;
+import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
-public class Turismo {
+public class Vehiculo {
 
     private String matricula, marca, modelo;
     private int cilindrada;
     private boolean disponible;
 
-    public Turismo(Turismo turismo) {
-        matricula = turismo.getMatricula();
-        marca = turismo.getMarca();
-        modelo = turismo.getModelo();
-        cilindrada = turismo.getCilindrada();
-        disponible = turismo.getDisponible();
+    public Vehiculo(Vehiculo vehiculo) {
+        matricula = vehiculo.getMatricula();
+        marca = vehiculo.getMarca();
+        modelo = vehiculo.getModelo();
+        cilindrada = vehiculo.getCilindrada();
+        disponible = vehiculo.getDisponible();
     }
 
-    public Turismo(String matricula, String marca, String modelo, int cilindrada) {
+    public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
         setMatricula(matricula);
         setMarca(marca);
         setModelo(modelo);

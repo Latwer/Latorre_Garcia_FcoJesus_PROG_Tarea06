@@ -5,9 +5,9 @@ import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.Turismo;
-import utilidades.Entrada;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.utilidades.Consola;
+import mvc.vista.utilidades.Entrada;
 import mvc.controlador.ControladorAlquilerVehiculos;
 
 /**
@@ -79,41 +79,41 @@ public class IUTextual {
         System.out.println("");
     }
 
-    public void anadirTurismo() {
+    public void anadirVehiculo() {
         Consola.mostrarCabecera("Añadir turismo");
-        Turismo turismo = Consola.leerTurismo();
+        Vehiculo vehiculo = Consola.leerVehiculo();
         try {
-            controlador.addTurismo(turismo);
-            System.out.println("Turismo añadido satisfactoriamente\n");
+            controlador.addVehiculo(vehiculo);
+            System.out.println("Vehiculo añadido satisfactoriamente\n");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());
         }
     }
 
-    public void borrarTurismo() {
+    public void borrarVehiculo() {
         Consola.mostrarCabecera("Borrar turismo");
         String matricula = Consola.leerMatricula();
         try {
-            controlador.delTurismo(matricula);
-            System.out.println("Turismo borrado satisfactoriamente\n");
+            controlador.delVehiculo(matricula);
+            System.out.println("Vehiculo borrado satisfactoriamente\n");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());
         }
     }
 
-    public void buscarTurismo() {
+    public void buscarVehiculo() {
         Consola.mostrarCabecera("Buscar turismo");
         String matricula = Consola.leerMatricula();
-        Turismo turismoBuscado = controlador.getTurismo(matricula);
-        String mensaje = (turismoBuscado != null) ? turismoBuscado.toString() : "El turismo no existe";
+        Vehiculo vehiculoBuscado = controlador.getVehiculo(matricula);
+        String mensaje = (vehiculoBuscado != null) ? vehiculoBuscado.toString() : "El vehiculo no existe";
         System.out.printf("%s%n%n", mensaje);
     }
 
-    public void listarTurismos() {
-        Consola.mostrarCabecera("Listar turismos");
-        for (Turismo turismo : controlador.getTurismos()) {
-            if (turismo != null) {
-                System.out.println(turismo);
+    public void listarVehiculos() {
+        Consola.mostrarCabecera("Listar vehiculos");
+        for (Vehiculo vehiculo : controlador.getVehiculos()) {
+            if (vehiculo != null) {
+                System.out.println(vehiculo);
             }
         }
         System.out.println("");
@@ -124,7 +124,7 @@ public class IUTextual {
         String dni = Consola.leerDni();
         Cliente cliente = controlador.getCliente(dni);
         String matricula = Consola.leerMatricula();
-        Turismo turismo = controlador.getTurismo(matricula);
+        Vehiculo turismo = controlador.getVehiculo(matricula);
         if (cliente == null && turismo == null) {
             System.out.println("ERROR: No existe un cliente con dicho dni o un vehículo con dicha matrícula\n");
         } else {
@@ -142,7 +142,7 @@ public class IUTextual {
         String dni = Consola.leerDni();
         Cliente cliente = controlador.getCliente(dni);
         String matricula = Consola.leerMatricula();
-        Turismo turismo = controlador.getTurismo(matricula);
+        Vehiculo turismo = controlador.getVehiculo(matricula);
         if (cliente == null && turismo == null) {
             System.out.println("ERROR: No existe un cliente con dicho dni o un vehículo con dicha matrícula\n");
         } else {
@@ -170,10 +170,10 @@ public class IUTextual {
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
         miAlquiler.addCliente(cliente1);
         miAlquiler.addCliente(cliente2);
-        Turismo turismo1 = new Turismo("1111BBB", "Nissan", "Skyline", 1900);
-        Turismo turismo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
-        miAlquiler.addTurismo(turismo1);
-        miAlquiler.addTurismo(turismo2);
+        Vehiculo turismo1 = new Vehiculo("1111BBB", "Nissan", "Skyline", 1900);
+        Vehiculo turismo2 = new Vehiculo("2222BBB", "Opel", "Corsa", 1600);
+        miAlquiler.addVehiculo(turismo1);
+        miAlquiler.addVehiculo(turismo2);
         miAlquiler.openAlquiler(cliente1, turismo1);
         miAlquiler.openAlquiler(cliente2, turismo2);
         miAlquiler.closeAlquiler(cliente1, turismo1);
@@ -184,7 +184,7 @@ public class IUTextual {
             }
         }
         System.out.println("--------------");
-        for (Turismo turismo : miAlquiler.getTurismos()) {
+        for (Vehiculo turismo : miAlquiler.getTurismos()) {
             if (turismo != null) {
                 System.out.println(turismo);
             }
@@ -242,7 +242,7 @@ public class IUTextual {
                     System.out.println("");
                     break;
                 case 4:
-                    Turismo nuevoTurismo = null;
+                    Vehiculo nuevoTurismo = null;
                     System.out.println("\nAñadir turismo");
                     System.out.println("---------------");
                     System.out.print("Matrícula: ");
@@ -254,8 +254,8 @@ public class IUTextual {
                     System.out.print("Cilindrada: ");
                     int cilindrada = Entrada.entero();
                     try {
-                        nuevoTurismo = new Turismo(matricula, marca, modelo, cilindrada);
-                        miAlquiler.addTurismo(nuevoTurismo);
+                        nuevoTurismo = new Vehiculo(matricula, marca, modelo, cilindrada);
+                        miAlquiler.addVehiculo(nuevoTurismo);
                     } catch (ExcepcionAlquilerVehiculos e) {
                         System.out.printf("ERROR: %s%n%n", e.getMessage());
                     }
@@ -267,7 +267,7 @@ public class IUTextual {
                     String matriculaBorrar = Entrada.cadena();
                     try {
                         miAlquiler.delTurismo(matriculaBorrar);
-                        System.out.println("Turismo borrado satisfactoriamente\n");
+                        System.out.println("Vehiculo borrado satisfactoriamente\n");
                     } catch (ExcepcionAlquilerVehiculos e) {
                         System.out.printf("ERROR: %s%n%n", e.getMessage());
                     }
@@ -275,7 +275,7 @@ public class IUTextual {
                 case 6:
                     System.out.println("\nListado de turismos");
                     System.out.println("--------------------");
-                    for (Turismo turismo : miAlquiler.getTurismos()) {
+                    for (Vehiculo turismo : miAlquiler.getTurismos()) {
                         if (turismo != null) {
                             System.out.println(turismo);
                         }
@@ -288,9 +288,9 @@ public class IUTextual {
                     System.out.print("\nIntroduce el DNI del cliente: ");
                     String dniBuscar = Entrada.cadena();
                     Cliente clienteBuscado = miAlquiler.getCliente(dniBuscar);
-                    System.out.print("\nIntroduce la matrícula del Turismo: ");
+                    System.out.print("\nIntroduce la matrícula del Vehiculo: ");
                     String matriculaBuscar = Entrada.cadena();
-                    Turismo turismoBuscado = miAlquiler.getTurismo(matriculaBuscar);
+                    Vehiculo turismoBuscado = miAlquiler.getTurismo(matriculaBuscar);
                     if (turismoBuscado == null | clienteBuscado == null) {
                         System.out.println("ERROR: No existe un cliente con dicho DNI o un turismo con dicha matrícula\n");
                     } else {

@@ -3,7 +3,7 @@ package mvc.modelo.dao;
 import mvc.modelo.dominio.Alquiler;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.Turismo;
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
@@ -21,11 +21,11 @@ public class Alquileres {
         return alquileres.clone();
     }
 
-    /*public void openAlquiler(Cliente cliente, Turismo turismo) throws ExcepcionAlquilerVehiculos {
+    /*public void openAlquiler(Cliente cliente, Vehiculo vehiculo) throws ExcepcionAlquilerVehiculos {
         int indice = 0;
         boolean alquilerEncontrado = false;
-        if (!turismo.getDisponible()) {
-            throw new ExcepcionAlquilerVehiculos("El turismo que quiere alquilar no está disponible");
+        if (!vehiculo.getDisponible()) {
+            throw new ExcepcionAlquilerVehiculos("El vehiculo que quiere alquilar no está disponible");
         }
         while (indice < alquileres.length && !alquilerEncontrado) {
             if (alquileres[indice] == null) {
@@ -35,39 +35,39 @@ public class Alquileres {
             }
         }
         if (indice < alquileres.length) {
-            alquileres[indice] = new Alquiler(cliente, turismo);
+            alquileres[indice] = new Alquiler(cliente, vehiculo);
         } else {
             throw new ExcepcionAlquilerVehiculos("El array de alquileres está lleno.");
         }
     }*/
-    public void openAlquiler(Cliente cliente, Turismo turismo) {
+    public void openAlquiler(Cliente cliente, Vehiculo vehiculo) {
         int posicion = 0;
         boolean posicionEncontrada = false;
         while (posicion < alquileres.length && !posicionEncontrada) {
             if (alquileres[posicion] == null) {
                 posicionEncontrada = true;
-            } else if (alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula())
-                    && !alquileres[posicion].getTurismo().getDisponible()) {
+            } else if (alquileres[posicion].getVehiculo().getMatricula().equals(vehiculo.getMatricula())
+                    && !alquileres[posicion].getVehiculo().getDisponible()) {
                 throw new ExcepcionAlquilerVehiculos("Ya existe un Alquiler abierto para este turismo");
             } else {
                 posicion++;
             }
         }
         if (posicionEncontrada) {
-            alquileres[posicion] = new Alquiler(cliente, turismo);
+            alquileres[posicion] = new Alquiler(cliente, vehiculo);
         } else {
             throw new ExcepcionAlquilerVehiculos("El array de Alquileres está lleno.");
         }
     }
 
-    public void closeAlquiler(Cliente cliente, Turismo turismo) {
+    public void closeAlquiler(Cliente cliente, Vehiculo turismo) {
         int posicion = 0;
         boolean encontrado = false;
         while (posicion < alquileres.length && !encontrado) {
             if (alquileres[posicion] != null
-                    && alquileres[posicion].getTurismo().getMatricula().equals(turismo.getMatricula())
+                    && alquileres[posicion].getVehiculo().getMatricula().equals(turismo.getMatricula())
                     && alquileres[posicion].getCliente().getDni().equals(cliente.getDni())
-                    && !alquileres[posicion].getTurismo().getDisponible()) {
+                    && !alquileres[posicion].getVehiculo().getDisponible()) {
                 encontrado = true;
             } else {
                 posicion++;

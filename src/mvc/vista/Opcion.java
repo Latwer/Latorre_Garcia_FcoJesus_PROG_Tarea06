@@ -31,24 +31,24 @@ public enum Opcion {
             vista.listarClientes();
         }
     },
-    ANADIR_TURISMO("Añadir turismo") {
+    ANADIR_TURISMO("Añadir vehiculo") {
         public void ejecutar() {
-            vista.anadirTurismo();
+            vista.anadirVehiculo();
         }
     },
-    BORRAR_TURISMO("Borrar turismo") {
+    BORRAR_TURISMO("Borrar vehiculo") {
         public void ejecutar() {
-            vista.borrarTurismo();
+            vista.borrarVehiculo();
         }
     },
-    BUSCAR_TURISMO("Buscar turismo") {
+    BUSCAR_TURISMO("Buscar vehiculo") {
         public void ejecutar() {
-            vista.buscarTurismo();
+            vista.buscarVehiculo();
         }
     },
-    LISTAR_TURISMOS("Listar turismos") {
+    LISTAR_TURISMOS("Listar vehiculos") {
         public void ejecutar() {
-            vista.listarTurismos();
+            vista.listarVehiculos();
         }
     },
     ABRIR_ALQUILER("Abrir alquiler") {

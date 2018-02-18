@@ -1,5 +1,6 @@
 package mvc.modelo;
 
+import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.*;
 import mvc.modelo.dao.*;
 
@@ -9,17 +10,17 @@ import mvc.modelo.dao.*;
 public class AlquilerVehiculos {
 
     private Clientes clientes;
-    private Turismos turismos;
+    private Vehiculos vehiculos;
     private Alquileres alquileres;
 
     public AlquilerVehiculos() {
         clientes = new Clientes();
-        turismos = new Turismos();
+        vehiculos = new Vehiculos();
         alquileres = new Alquileres();
     }
 
-    public Turismo[] getTurismos() {
-        return turismos.getTurismos();
+    public Vehiculo[] getVehiculos() {
+        return vehiculos.getVehiculos();
     }
 
     public Cliente[] getClientes() {
@@ -30,17 +31,17 @@ public class AlquilerVehiculos {
         return alquileres.getAlquileres();
     }
 
-    public void addTurismo(Turismo turismo) {
-        //comprobarDisponibilidadTurismo(turismo);
-        turismos.addTurismo(turismo);
+    public void addVehiculo(Vehiculo vehiculo) {
+        //comprobarDisponibilidadTurismo(vehiculo);
+        vehiculos.addVehiculo(vehiculo);
     }
 
-    public void delTurismo(String matricula) {
-        turismos.delTurismo(matricula);
+    public void delVehiculo(String matricula) {
+        vehiculos.delVehiculo(matricula);
     }
 
-    public Turismo getTurismo(String matricula) {
-        return turismos.getTurismo(matricula);
+    public Vehiculo getVehiculo(String matricula) {
+        return vehiculos.getVehiculo(matricula);
     }
 
     public void addCliente(Cliente cliente) {
@@ -55,23 +56,23 @@ public class AlquilerVehiculos {
         return clientes.getCliente(dni);
     }
 
-    public void openAlquiler(Cliente cliente, Turismo turismo) {
+    public void openAlquiler(Cliente cliente, Vehiculo vehiculo) {
         //comprobarDisponibilidadTurismo(cliente, turismo);
-        alquileres.openAlquiler(cliente, turismo);
+        alquileres.openAlquiler(cliente, vehiculo);
     }
 
-    public void closeAlquiler(Cliente cliente, Turismo turismo) {
-        comprobarExistenciaClienteTurismo(cliente, turismo);
-        alquileres.closeAlquiler(cliente, turismo);
+    public void closeAlquiler(Cliente cliente, Vehiculo vehiculo) {
+        comprobarExistenciaClienteTurismo(cliente, vehiculo);
+        alquileres.closeAlquiler(cliente, vehiculo);
     }
 
-    /*private void comprobarDisponibilidadTurismo(Cliente cliente, Turismo turismo) {
+    /*private void comprobarDisponibilidadTurismo(Cliente cliente, Vehiculo turismo) {
         if (clientes.buscarCliente(turismo.getPropietario().getDni()) == null) {
             throw new ExcepcionAlquilerVehiculos("El propietario del vehículo no existe");
         }
     }*/
-    private void comprobarExistenciaClienteTurismo(Cliente cliente, Turismo turismo) {
-        if (turismos.getTurismo(turismo.getMatricula()) == null && clientes.getCliente(cliente.getDni()) == null) {
+    private void comprobarExistenciaClienteTurismo(Cliente cliente, Vehiculo vehiculo) {
+        if (vehiculos.getVehiculo(vehiculo.getMatricula()) == null && clientes.getCliente(cliente.getDni()) == null) {
             throw new ExcepcionAlquilerVehiculos("El cliente o turismo no existe");
         }
     }
@@ -81,13 +82,13 @@ public class AlquilerVehiculos {
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
         addCliente(cliente1);
         addCliente(cliente2);
-        Turismo turismo1 = new Turismo("1111BBB", "Nissan", "Skyline", 1900);
-        Turismo turismo2 = new Turismo("2222BBB", "Opel", "Corsa", 1600);
-        addTurismo(turismo1);
-        addTurismo(turismo2);
-        openAlquiler(cliente1, turismo1);
-        openAlquiler(cliente2, turismo2);
-        closeAlquiler(cliente1, turismo1);
-        closeAlquiler(cliente2, turismo2);
+        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Nissan", "Skyline", 1900);
+        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", 1600);
+        addVehiculo(vehiculo1);
+        addVehiculo(vehiculo2);
+        openAlquiler(cliente1, vehiculo1);
+        openAlquiler(cliente2, vehiculo2);
+        closeAlquiler(cliente1, vehiculo1);
+        closeAlquiler(cliente2, vehiculo2);
     }
 }
