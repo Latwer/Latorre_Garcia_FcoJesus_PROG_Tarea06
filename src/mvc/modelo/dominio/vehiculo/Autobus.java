@@ -3,22 +3,22 @@ package mvc.modelo.dominio.vehiculo;
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
-public class DeCarga extends Vehiculo {
-
-    public DeCarga(Vehiculo vehiculo) {
+public class Autobus extends Vehiculo{
+    public Autobus(Vehiculo vehiculo) {
         super(vehiculo);
     }
 
-    /*public DeCarga (DeCarga deCarga){
+    /*public Autobus (Autobus autobus){
         
     }*/
     @Override
     public TipoVehiculo getTipoVehiculo() {
-        return TipoVehiculo.DE_CARGA;
+        return TipoVehiculo.AUTOBUS;
     }
 
     @Override
     public double getPrecioEspecifico() {
-        return getPrecioEspecifico() + FACTOR_PMA / 20 + 1 * FACTOR_NUMERO_PLAZAS;
+        return getPrecioEspecifico() + FACTOR_CILINDRADA / 50 + 1 * FACTOR_NUMERO_PLAZAS;
     }
+    
 }
