@@ -3,6 +3,7 @@ package mvc.modelo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.*;
 import mvc.modelo.dao.*;
+import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
@@ -82,8 +83,8 @@ public class AlquilerVehiculos {
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
         addCliente(cliente1);
         addCliente(cliente2);
-        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Nissan", "Skyline", 1900);
-        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", 1600);
+        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Nissan", "Skyline", new DatosTecnicosVehiculo (1600, 5, 400));
+        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", new DatosTecnicosVehiculo (1600, 5, 500));
         addVehiculo(vehiculo1);
         addVehiculo(vehiculo2);
         openAlquiler(cliente1, vehiculo1);

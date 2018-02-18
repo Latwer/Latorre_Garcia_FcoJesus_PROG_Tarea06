@@ -70,7 +70,7 @@ public class Alquiler {
     }
 
     public double getPrecio() {
-        return PRECIO_DIA * dias + vehiculo.getCilindrada() / 100;
+        return PRECIO_DIA * dias + vehiculo.FACTOR_CILINDRADA / 100;
     }
 
     @Override

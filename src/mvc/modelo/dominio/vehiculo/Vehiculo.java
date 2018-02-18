@@ -7,24 +7,27 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
 public class Vehiculo {
-
+    
+    private DatosTecnicosVehiculo datosTecnicos;
     private String matricula, marca, modelo;
-    private int cilindrada;
     private boolean disponible;
+    public final double FACTOR_CILINDRADA=0;
+    public final double FACTOR_NUMERO_PLAZAS=0;
+    public final double FACTOR_PMA=0;
 
     public Vehiculo(Vehiculo vehiculo) {
         matricula = vehiculo.getMatricula();
         marca = vehiculo.getMarca();
         modelo = vehiculo.getModelo();
-        cilindrada = vehiculo.getCilindrada();
+        datosTecnicos = vehiculo.getDatosTecnicos();
         disponible = vehiculo.getDisponible();
     }
 
-    public Vehiculo(String matricula, String marca, String modelo, int cilindrada) {
+    public Vehiculo(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicos) {
         setMatricula(matricula);
         setMarca(marca);
         setModelo(modelo);
-        setCilindrada(cilindrada);
+        setDatosTecnicos(datosTecnicos);
     }
 
     private void setMatricula(String matricula) {
@@ -56,12 +59,11 @@ public class Vehiculo {
             throw new ExcepcionAlquilerVehiculos("Modelo no válido");
         }
     }
-
-    private void setCilindrada(int cilindrada) {
-        if (cilindrada > 0) {
-            this.cilindrada = cilindrada;
+    private void setDatosTecnicos(DatosTecnicosVehiculo datosTecnicos) {
+        if (datosTecnicos != null) {
+            this.datosTecnicos = new DatosTecnicosVehiculo(datosTecnicos);
         } else {
-            throw new ExcepcionAlquilerVehiculos("Cilindrada no válida");
+            throw new ExcepcionAlquilerVehiculos("El vehiculo debe de tener datos técnicos definidos");
         }
     }
 
@@ -77,12 +79,11 @@ public class Vehiculo {
         return modelo;
     }
 
-    public int getCilindrada() {
-        return cilindrada;
-    }
-
     public boolean getDisponible() {
         return disponible;
+    }
+    public DatosTecnicosVehiculo getDatosTecnicos(){
+        return datosTecnicos;
     }
 
     public void setDisponible(boolean disponible) {
@@ -91,7 +92,7 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return String.format("Matrícula: %s, Marca: %s, Modelo: %s, Cilindrada: %d%n",
-                matricula, marca, modelo, cilindrada);
+        return String.format("Matrícula: %s, Marca: %s, Modelo: %s%n\t Datos Tecnicos: %s",
+                matricula, marca, modelo, datosTecnicos);
     }
 }

@@ -3,6 +3,7 @@ package mvc.vista.utilidades;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.Opcion;
 
@@ -68,8 +69,12 @@ public class Consola {
         String modelo = Entrada.cadena();
         System.out.print("Cilindrada: ");
         int cilindrada = Entrada.entero();
+        System.out.print("Numero de plazas: ");
+        int numeroPlazas = Entrada.entero();
+        System.out.print("PMA: ");
+        int pma = Entrada.entero();
         try {
-            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, cilindrada);
+            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, new DatosTecnicosVehiculo (cilindrada, numeroPlazas, pma));
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());
         }
