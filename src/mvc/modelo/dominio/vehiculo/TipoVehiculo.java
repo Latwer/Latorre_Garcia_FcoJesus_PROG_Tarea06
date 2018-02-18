@@ -1,7 +1,7 @@
 package mvc.modelo.dominio.vehiculo;
 
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
-import mvc.modelo.dominio.vehiculo.Vehiculo;
+
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
@@ -22,6 +22,7 @@ public enum TipoVehiculo {
         }
     };
     private String tipo;
+
     private TipoVehiculo(String tipo) {
         this.tipo = tipo;
     }

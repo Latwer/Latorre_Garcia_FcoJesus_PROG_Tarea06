@@ -6,8 +6,7 @@ import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
-public class Vehiculo {
-    
+public abstract class Vehiculo {
     private DatosTecnicosVehiculo datosTecnicos;
     private String matricula, marca, modelo;
     private boolean disponible;
@@ -66,6 +65,8 @@ public class Vehiculo {
             throw new ExcepcionAlquilerVehiculos("El vehiculo debe de tener datos técnicos definidos");
         }
     }
+    public abstract TipoVehiculo getTipoVehiculo();
+    public abstract double getPrecioEspecifico();
 
     public String getMatricula() {
         return matricula;
