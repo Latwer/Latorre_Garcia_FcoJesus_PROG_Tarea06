@@ -9,23 +9,26 @@ import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.utilidades.Consola;
 import mvc.vista.utilidades.Entrada;
 import mvc.controlador.ControladorAlquilerVehiculos;
+import mvc.controlador.IControladorAlquilerVehiculos;
 import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
-public class IUTextual {
+public class IUTextual implements IVistaAlquilerVehiculos {
 
-    ControladorAlquilerVehiculos controlador;
+    IControladorAlquilerVehiculos controlador;
 
     public IUTextual() {
         Opcion.setVista(this);
     }
 
+    @Override
     public void setControlador(ControladorAlquilerVehiculos controlador) {
         this.controlador = controlador;
     }
 
+    @Override
     public void comenzar() {
         int ordinalOpcion;
         do {
@@ -36,10 +39,12 @@ public class IUTextual {
         } while (ordinalOpcion != Opcion.SALIR.ordinal());
     }
 
+    @Override
     public void salir() {
         System.out.println("Hasta la proxima!");
     }
 
+    @Override
     public void anadirCliente() {
         Consola.mostrarCabecera("Añadir cliente");
         Cliente cliente = Consola.leerCliente();
@@ -51,6 +56,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void borrarCliente() {
         Consola.mostrarCabecera("Borrar cliente");
         String dni = Consola.leerDni();
@@ -62,6 +68,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void buscarCliente() {
         Consola.mostrarCabecera("Buscar cliente");
         String dni = Consola.leerDni();
@@ -70,6 +77,7 @@ public class IUTextual {
         System.out.printf("%s%n%n", mensaje);
     }
 
+    @Override
     public void listarClientes() {
         Consola.mostrarCabecera("Listar clientes");
         for (Cliente cliente : controlador.getClientes()) {
@@ -80,6 +88,7 @@ public class IUTextual {
         System.out.println("");
     }
 
+    @Override
     public void anadirVehiculo() {
         Consola.mostrarCabecera("Añadir vehiculo");
         Vehiculo vehiculo = Consola.leerVehiculo();
@@ -92,6 +101,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void borrarVehiculo() {
         Consola.mostrarCabecera("Borrar turismo");
         String matricula = Consola.leerMatricula();
@@ -103,6 +113,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void buscarVehiculo() {
         Consola.mostrarCabecera("Buscar turismo");
         String matricula = Consola.leerMatricula();
@@ -111,6 +122,7 @@ public class IUTextual {
         System.out.printf("%s%n%n", mensaje);
     }
 
+    @Override
     public void listarVehiculos() {
         Consola.mostrarCabecera("Listar vehiculos");
         for (Vehiculo vehiculo : controlador.getVehiculos()) {
@@ -121,6 +133,7 @@ public class IUTextual {
         System.out.println("");
     }
 
+    @Override
     public void abrirAlquiler() {
         Consola.mostrarCabecera("Abrir alquiler");
         String dni = Consola.leerDni();
@@ -139,6 +152,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void cerrarAlquiler() {
         Consola.mostrarCabecera("Cerrar alquiler");
         String dni = Consola.leerDni();
@@ -157,6 +171,7 @@ public class IUTextual {
         }
     }
 
+    @Override
     public void listarAlquileres() {
         Consola.mostrarCabecera("Listar alquileres");
         for (Alquiler alquiler : controlador.getAlquileres()) {

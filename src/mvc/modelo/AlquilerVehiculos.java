@@ -9,7 +9,7 @@ import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
-public class AlquilerVehiculos {
+public class AlquilerVehiculos implements IModeloAlquilerVehiculos {
 
     private Clientes clientes;
     private Vehiculos vehiculos;
@@ -21,48 +21,59 @@ public class AlquilerVehiculos {
         alquileres = new Alquileres();
     }
 
+    @Override
     public Vehiculo[] getVehiculos() {
         return vehiculos.getVehiculos();
     }
 
+    @Override
     public Cliente[] getClientes() {
         return clientes.getClientes();
     }
 
+    @Override
     public Alquiler[] getAlquileres() {
         return alquileres.getAlquileres();
     }
 
+    @Override
     public void addVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
         //comprobarDisponibilidadTurismo(vehiculo);
         vehiculos.addVehiculo(vehiculo, tipoVehiculo);
     }
 
+    @Override
     public void delVehiculo(String matricula) {
         vehiculos.delVehiculo(matricula);
     }
 
+    @Override
     public Vehiculo getVehiculo(String matricula) {
         return vehiculos.getVehiculo(matricula);
     }
 
+    @Override
     public void addCliente(Cliente cliente) {
         clientes.addCliente(cliente);
     }
 
+    @Override
     public void delCliente(String dni) {
         clientes.delCliente(dni);
     }
 
+    @Override
     public Cliente getCliente(String dni) {
         return clientes.getCliente(dni);
     }
 
+    @Override
     public void openAlquiler(Cliente cliente, Vehiculo vehiculo) {
         //comprobarDisponibilidadTurismo(cliente, turismo);
         alquileres.openAlquiler(cliente, vehiculo);
     }
 
+    @Override
     public void closeAlquiler(Cliente cliente, Vehiculo vehiculo) {
         comprobarExistenciaClienteTurismo(cliente, vehiculo);
         alquileres.closeAlquiler(cliente, vehiculo);
@@ -79,6 +90,7 @@ public class AlquilerVehiculos {
         }
     }
 
+    @Override
     public void anadirDatosPrueba() {
         Cliente cliente1 = new Cliente("Juanma", "11111111A", new DireccionPostal("calle esmeralda", "Almería", "04001"));
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));

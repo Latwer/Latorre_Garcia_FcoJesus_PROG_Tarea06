@@ -60,12 +60,12 @@ public class Alquileres {
         }
     }
 
-    public void closeAlquiler(Cliente cliente, Vehiculo turismo) {
+    public void closeAlquiler(Cliente cliente, Vehiculo vehiculo) {
         int posicion = 0;
         boolean encontrado = false;
         while (posicion < alquileres.length && !encontrado) {
             if (alquileres[posicion] != null
-                    && alquileres[posicion].getVehiculo().getMatricula().equals(turismo.getMatricula())
+                    && alquileres[posicion].getVehiculo().getMatricula().equals(vehiculo.getMatricula())
                     && alquileres[posicion].getCliente().getDni().equals(cliente.getDni())
                     && !alquileres[posicion].getVehiculo().getDisponible()) {
                 encontrado = true;
