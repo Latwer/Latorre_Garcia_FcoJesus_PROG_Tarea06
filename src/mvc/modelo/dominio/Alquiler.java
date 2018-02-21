@@ -39,7 +39,7 @@ public class Alquiler {
 
     private void setVehiculo(Vehiculo vehiculo) {
         if (vehiculo != null) {
-            this.vehiculo = new Vehiculo(vehiculo);
+            this.vehiculo = vehiculo;
         } else {
             throw new ExcepcionAlquilerVehiculos("El alquiler debe tener un vehiculo identificado");
         }
@@ -71,6 +71,9 @@ public class Alquiler {
 
     public double getPrecio() {
         return PRECIO_DIA * dias + vehiculo.FACTOR_CILINDRADA / 100;
+    }
+    public double getPrecioFijo() {
+        return getPrecio() + vehiculo.getPrecioEspecifico();
     }
 
     @Override

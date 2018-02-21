@@ -80,10 +80,10 @@ public class IUTextual {
     }
 
     public void anadirVehiculo() {
-        Consola.mostrarCabecera("Añadir turismo");
+        Consola.mostrarCabecera("Añadir vehiculo");
         Vehiculo vehiculo = Consola.leerVehiculo();
         try {
-            controlador.addVehiculo(vehiculo);
+            controlador.addVehiculo(vehiculo, tipoVehiculo);
             System.out.println("Vehiculo añadido satisfactoriamente\n");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());

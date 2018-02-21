@@ -4,6 +4,7 @@ import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.modelo.dominio.*;
 import mvc.modelo.dao.*;
 import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
@@ -32,9 +33,9 @@ public class AlquilerVehiculos {
         return alquileres.getAlquileres();
     }
 
-    public void addVehiculo(Vehiculo vehiculo) {
+    public void addVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
         //comprobarDisponibilidadTurismo(vehiculo);
-        vehiculos.addVehiculo(vehiculo);
+        vehiculos.addVehiculo(vehiculo, tipoVehiculo);
     }
 
     public void delVehiculo(String matricula) {
@@ -81,15 +82,21 @@ public class AlquilerVehiculos {
     public void anadirDatosPrueba() {
         Cliente cliente1 = new Cliente("Juanma", "11111111A", new DireccionPostal("calle esmeralda", "Almería", "04001"));
         Cliente cliente2 = new Cliente("Sergio", "22222222B", new DireccionPostal("calle granada", "Almería", "04002"));
+        Cliente cliente3 = new Cliente("Mario", "75728705B", new DireccionPostal("calle lupa", "Almería", "04008"));
         addCliente(cliente1);
         addCliente(cliente2);
-        Vehiculo vehiculo1 = new Vehiculo("1111BBB", "Nissan", "Skyline", new DatosTecnicosVehiculo (1600, 5, 400));
-        Vehiculo vehiculo2 = new Vehiculo("2222BBB", "Opel", "Corsa", new DatosTecnicosVehiculo (1600, 5, 500));
-        addVehiculo(vehiculo1);
-        addVehiculo(vehiculo2);
+        addCliente(cliente3);
+        Vehiculo vehiculo1 = TipoVehiculo.TURISMO.getInstancia("1111BBB", "Nissan", "Skyline", new DatosTecnicosVehiculo (1600, 5, 400));
+        Vehiculo vehiculo2 = TipoVehiculo.DE_CARGA.getInstancia("2222BBB", "IVECO", "DAILY", new DatosTecnicosVehiculo (5000, 5, 25000));
+        Vehiculo vehiculo3 = TipoVehiculo.AUTOBUS.getInstancia("3333BBB", "PEGASO", "NONAINO", new DatosTecnicosVehiculo (5000, 70, 5000));
+        addVehiculo(vehiculo1, TipoVehiculo.TURISMO);
+	addVehiculo(vehiculo2, TipoVehiculo.DE_CARGA);
+	addVehiculo(vehiculo3, TipoVehiculo.AUTOBUS);
         openAlquiler(cliente1, vehiculo1);
         openAlquiler(cliente2, vehiculo2);
+        openAlquiler(cliente3, vehiculo3);
         closeAlquiler(cliente1, vehiculo1);
         closeAlquiler(cliente2, vehiculo2);
+        closeAlquiler(cliente3, vehiculo3);
     }
 }

@@ -5,13 +5,14 @@ package mvc.modelo.dominio.vehiculo;
  */
 public class DeCarga extends Vehiculo {
 
-    public DeCarga(Vehiculo vehiculo) {
-        super(vehiculo);
+    public DeCarga(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicos) {
+        super(matricula, marca, modelo, datosTecnicos);
     }
 
-    /*public DeCarga (DeCarga deCarga){
-        
-    }*/
+    public DeCarga(DeCarga deCarga) {
+        super(deCarga);
+    }
+
     @Override
     public TipoVehiculo getTipoVehiculo() {
         return TipoVehiculo.DE_CARGA;
@@ -19,6 +20,6 @@ public class DeCarga extends Vehiculo {
 
     @Override
     public double getPrecioEspecifico() {
-        return getPrecioEspecifico() + FACTOR_PMA / 20 + 1 * FACTOR_NUMERO_PLAZAS;
+        return FACTOR_PMA / 20 + 1 * FACTOR_NUMERO_PLAZAS;
     }
 }

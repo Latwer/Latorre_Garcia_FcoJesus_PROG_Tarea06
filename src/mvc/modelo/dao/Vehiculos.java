@@ -1,6 +1,7 @@
 package mvc.modelo.dao;
 
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 
 /**
@@ -9,22 +10,24 @@ import mvc.modelo.dominio.vehiculo.Vehiculo;
  */
 public class Vehiculos {
 
-    private Vehiculo[] Vehiculos;
+    private Vehiculo[] vehiculos;
 
-    private final int MAX_TURISMOS = 25;
+    private final int MAX_VEHICULOS = 25;
 
     public Vehiculos() {
-        Vehiculos = new Vehiculo[MAX_TURISMOS];
+        vehiculos = new Vehiculo[MAX_VEHICULOS];
     }
 
     public Vehiculo[] getVehiculos() {
-        return Vehiculos.clone();
+        return vehiculos.clone();
     }
 
-    public void addVehiculo(TipoVehiculo tipoVehiculo) {
+    public void addVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
         int indice = buscarPrimerIndiceLibreComprobandoExistencia(vehiculo);
         if (indiceNoSuperaTamano(indice)) {
-            Vehiculos[indice] = new Vehiculo(vehiculo);
+            //vehiculos[indice] = new Vehiculo(vehiculo);
+            vehiculos[indice] = tipoVehiculo.getInstancia(vehiculo.getMatricula(), vehiculo.getMarca(),
+                    vehiculo.getModelo(), vehiculo.getDatosTecnicos());
         } else {
             throw new ExcepcionAlquilerVehiculos("El array de vehiculos está lleno.");
         }
@@ -34,9 +37,9 @@ public class Vehiculos {
         int indice = 0;
         boolean vehiculoEncontrado = false;
         while (indiceNoSuperaTamano(indice) && !vehiculoEncontrado) {
-            if (Vehiculos[indice] == null) {
+            if (vehiculos[indice] == null) {
                 vehiculoEncontrado = true;
-            } else if (Vehiculos[indice].getMatricula().equals(vehiculo.getMatricula())) {
+            } else if (vehiculos[indice].getMatricula().equals(vehiculo.getMatricula())) {
                 throw new ExcepcionAlquilerVehiculos("Ya existe un vehiculo con esa matrícula");
             } else {
                 indice++;
@@ -46,7 +49,7 @@ public class Vehiculos {
     }
 
     private boolean indiceNoSuperaTamano(int indice) {
-        return indice < Vehiculos.length;
+        return indice < vehiculos.length;
     }
 
     public void delVehiculo(String matricula) {
@@ -62,7 +65,7 @@ public class Vehiculos {
         int indice = 0;
         boolean vehiculoEncontrado = false;
         while (indiceNoSuperaTamano(indice) && !vehiculoEncontrado) {
-            if (Vehiculos[indice] != null && Vehiculos[indice].getMatricula().equals(matricula)) {
+            if (vehiculos[indice] != null && vehiculos[indice].getMatricula().equals(matricula)) {
                 vehiculoEncontrado = true;
             } else {
                 indice++;
@@ -72,15 +75,28 @@ public class Vehiculos {
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        for (int i = indice; i < Vehiculos.length - 1 && Vehiculos[i] != null; i++) {
-            Vehiculos[i] = Vehiculos[i + 1];
+        for (int i = indice; i < vehiculos.length - 1 && vehiculos[i] != null; i++) {
+            vehiculos[i] = vehiculos[i + 1];
         }
     }
 
+    /*public Vehiculo getVehiculo(String matricula, TipoVehiculo tipoVehiculo) {
+        int indice = buscarIndiceVehiculo(matricula);
+        if (indiceNoSuperaTamano(indice)) {
+            return new Vehiculo(vehiculos[indice]);
+            //return tipoVehiculo.getInstancia((vehiculo) (vehiculos[indice]));
+            //vehiculos[indice] = tipoVehiculo.getInstancia(vehiculo.getMatricula());
+        } else {
+            return null;
+        }
+    }
+
+    */
+    
     public Vehiculo getVehiculo(String matricula) {
         int indice = buscarIndiceVehiculo(matricula);
         if (indiceNoSuperaTamano(indice)) {
-            return new Vehiculo(Vehiculos[indice]);
+            return (vehiculos[indice]);
         } else {
             return null;
         }

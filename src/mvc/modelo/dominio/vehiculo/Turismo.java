@@ -5,13 +5,13 @@ package mvc.modelo.dominio.vehiculo;
  */
 public class Turismo extends Vehiculo {
 
-    public Turismo(Vehiculo vehiculo) {
-        super(vehiculo);
+    public Turismo(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicos) {
+        super(matricula, marca, modelo, datosTecnicos);
     }
 
-    /*public Turismo (Turismo turismo){
-        
-    }*/
+    public Turismo(Turismo turismo) {
+        super(turismo);
+    }
 
     @Override
     public TipoVehiculo getTipoVehiculo() {
@@ -20,7 +20,7 @@ public class Turismo extends Vehiculo {
 
     @Override
     public double getPrecioEspecifico() {
-        return getPrecioEspecifico() + FACTOR_CILINDRADA / 50;
+        return FACTOR_CILINDRADA / 50;
     }
 
 }

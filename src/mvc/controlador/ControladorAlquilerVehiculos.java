@@ -3,11 +3,11 @@ package mvc.controlador;
 import mvc.modelo.AlquilerVehiculos;
 import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.Alquiler;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.IUTextual;
 
 /**
- *
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
  */
 public class ControladorAlquilerVehiculos {
@@ -42,8 +42,8 @@ public class ControladorAlquilerVehiculos {
         return modelo.getClientes();
     }
 
-    public void addVehiculo(Vehiculo vehiculo) {
-        modelo.addVehiculo(vehiculo);
+    public void addVehiculo(Vehiculo vehiculo, TipoVehiculo tipoVehiculo) {
+        modelo.addVehiculo(vehiculo, tipoVehiculo);
     }
 
     public void delVehiculo(String matricula) {
