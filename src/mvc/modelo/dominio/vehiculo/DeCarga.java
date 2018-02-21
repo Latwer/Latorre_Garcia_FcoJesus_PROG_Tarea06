@@ -5,6 +5,8 @@ package mvc.modelo.dominio.vehiculo;
  */
 public class DeCarga extends Vehiculo {
 
+    private double precioDeCarga = 0.0;
+
     public DeCarga(String matricula, String marca, String modelo, DatosTecnicosVehiculo datosTecnicos) {
         super(matricula, marca, modelo, datosTecnicos);
     }
@@ -20,6 +22,8 @@ public class DeCarga extends Vehiculo {
 
     @Override
     public double getPrecioEspecifico() {
-        return FACTOR_PMA / 20 + 1 * FACTOR_NUMERO_PLAZAS;
+        //return FACTOR_PMA / 20 + 1 * FACTOR_NUMERO_PLAZAS;
+        precioDeCarga = getDatosTecnicos().getPma() / 20 + 1 * getDatosTecnicos().getNumeroPlazas();
+        return precioDeCarga;
     }
 }

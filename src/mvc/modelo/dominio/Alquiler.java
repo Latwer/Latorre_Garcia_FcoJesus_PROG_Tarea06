@@ -70,15 +70,15 @@ public class Alquiler {
     }
 
     public double getPrecio() {
-        return PRECIO_DIA * dias + vehiculo.FACTOR_CILINDRADA / 100;
+        return getPrecioFijo() + vehiculo.getPrecioEspecifico();
     }
     public double getPrecioFijo() {
-        return getPrecio() + vehiculo.getPrecioEspecifico();
+        return PRECIO_DIA * dias;
     }
 
     @Override
     public String toString() {
-        return String.format("Fecha entrada: %s, Días: %d  Precio: %.2f%n\tCliente: %s%n\tVehiculo: %s",
-                FORMATO_FECHA.format(fecha), dias, getPrecio(), cliente, vehiculo);
+        return String.format("Fecha entrada: %s, Días: %d, Precio: %.2f, Precio Fijo: %.2f%n\tCliente: %s%n\tVehiculo: %s",
+                FORMATO_FECHA.format(fecha), dias, getPrecio(), getPrecioFijo(), cliente, vehiculo);
     }
 }

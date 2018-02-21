@@ -9,6 +9,7 @@ import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.utilidades.Consola;
 import mvc.vista.utilidades.Entrada;
 import mvc.controlador.ControladorAlquilerVehiculos;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 
 /**
  * @author Francisco Jesus Latorre Garcia <franlatorregarcia@gmail.com>
@@ -82,8 +83,9 @@ public class IUTextual {
     public void anadirVehiculo() {
         Consola.mostrarCabecera("Añadir vehiculo");
         Vehiculo vehiculo = Consola.leerVehiculo();
+        int tipoVehiculo = Consola.elegirTipoVehiculo();
         try {
-            controlador.addVehiculo(vehiculo, tipoVehiculo);
+            controlador.addVehiculo(vehiculo, TipoVehiculo.getTipoVehiculoSegunOrdinal(tipoVehiculo));
             System.out.println("Vehiculo añadido satisfactoriamente\n");
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());

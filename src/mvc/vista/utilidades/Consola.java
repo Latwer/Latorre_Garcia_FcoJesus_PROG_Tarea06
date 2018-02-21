@@ -4,6 +4,7 @@ import mvc.modelo.dominio.Cliente;
 import mvc.modelo.dominio.DireccionPostal;
 import mvc.modelo.dominio.ExcepcionAlquilerVehiculos;
 import mvc.modelo.dominio.vehiculo.DatosTecnicosVehiculo;
+import mvc.modelo.dominio.vehiculo.TipoVehiculo;
 import mvc.modelo.dominio.vehiculo.Vehiculo;
 import mvc.vista.Opcion;
 
@@ -61,6 +62,7 @@ public class Consola {
 
     public static Vehiculo leerVehiculo() {
         Vehiculo nuevoVehiculo = null;
+        int ordinalVehiculo = 0;
         System.out.print("Matrícula: ");
         String matricula = Entrada.cadena();
         System.out.print("Marca: ");
@@ -74,7 +76,8 @@ public class Consola {
         System.out.print("PMA: ");
         int pma = Entrada.entero();
         try {
-            nuevoVehiculo = new Vehiculo(matricula, marca, modelo, new DatosTecnicosVehiculo (cilindrada, numeroPlazas, pma));
+            DatosTecnicosVehiculo datosTecnicosEntrada = new DatosTecnicosVehiculo(cilindrada, numeroPlazas, pma);
+            nuevoVehiculo = TipoVehiculo.getTipoVehiculoSegunOrdinal(ordinalVehiculo).getInstancia(matricula, marca, modelo, datosTecnicosEntrada);
         } catch (ExcepcionAlquilerVehiculos e) {
             System.out.printf("ERROR: %s%n%n", e.getMessage());
         }
@@ -86,4 +89,24 @@ public class Consola {
         String matriculaBorrar = Entrada.cadena();
         return matriculaBorrar;
     }
+
+    public static int elegirTipoVehiculo() {
+        int ordinalTipoVehiculo;
+
+        do {
+            System.out.printf("Elige el tipo de vehículo: ( %s)", obtenerTipoDeVehiculo());
+            ordinalTipoVehiculo = Entrada.entero();
+        } while (!TipoVehiculo.esOrdinalValido(ordinalTipoVehiculo));
+
+        return ordinalTipoVehiculo;
+    }
+
+    public static String obtenerTipoDeVehiculo() {
+        StringBuilder tiposDeVehiculo = new StringBuilder("");
+        for (TipoVehiculo tipoVehiculo : TipoVehiculo.values()) {
+            tiposDeVehiculo.append(tipoVehiculo.ordinal()).append(".- ").append(tipoVehiculo).append(" ");
+        }
+        return tiposDeVehiculo.toString();
+    }
+
 }

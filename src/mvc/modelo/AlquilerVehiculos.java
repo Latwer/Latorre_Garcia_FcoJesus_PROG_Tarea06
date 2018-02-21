@@ -87,8 +87,8 @@ public class AlquilerVehiculos {
         addCliente(cliente2);
         addCliente(cliente3);
         Vehiculo vehiculo1 = TipoVehiculo.TURISMO.getInstancia("1111BBB", "Nissan", "Skyline", new DatosTecnicosVehiculo (1600, 5, 400));
-        Vehiculo vehiculo2 = TipoVehiculo.DE_CARGA.getInstancia("2222BBB", "IVECO", "DAILY", new DatosTecnicosVehiculo (5000, 5, 25000));
-        Vehiculo vehiculo3 = TipoVehiculo.AUTOBUS.getInstancia("3333BBB", "PEGASO", "NONAINO", new DatosTecnicosVehiculo (5000, 70, 5000));
+        Vehiculo vehiculo2 = TipoVehiculo.DE_CARGA.getInstancia("2222BBB", "CAT", "Carguero", new DatosTecnicosVehiculo (5000, 5, 25000));
+        Vehiculo vehiculo3 = TipoVehiculo.AUTOBUS.getInstancia("3333BBB", "SUR", "BUS", new DatosTecnicosVehiculo (5000, 70, 5000));
         addVehiculo(vehiculo1, TipoVehiculo.TURISMO);
 	addVehiculo(vehiculo2, TipoVehiculo.DE_CARGA);
 	addVehiculo(vehiculo3, TipoVehiculo.AUTOBUS);
