@@ -23,7 +23,7 @@ public class Autobus extends Vehiculo {
     @Override
     public double getPrecioEspecifico() {
         //return FACTOR_CILINDRADA / 50 + 1 * FACTOR_NUMERO_PLAZAS;
-        precioAutobus = getDatosTecnicos().getCilindrada() / 50 + 1 * getDatosTecnicos().getNumeroPlazas();
+        precioAutobus = getDatosTecnicos().getCilindrada() / FACTOR_CILINDRADA + FACTOR_NUMERO_PLAZAS * getDatosTecnicos().getNumeroPlazas();
         return precioAutobus;
     }
 

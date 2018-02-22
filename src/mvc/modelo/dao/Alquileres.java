@@ -67,7 +67,7 @@ public class Alquileres {
             if (alquileres[posicion] != null
                     && alquileres[posicion].getVehiculo().getMatricula().equals(vehiculo.getMatricula())
                     && alquileres[posicion].getCliente().getDni().equals(cliente.getDni())
-                    && !alquileres[posicion].getVehiculo().getDisponible()) {
+                    && !alquileres[posicion].getVehiculo().getDisponible() && alquileres[posicion].getDias()==0) {
                 encontrado = true;
             } else {
                 posicion++;
